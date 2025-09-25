@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: How Well Do You Know BASE?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #0052ff, #00d4ff);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .start-screen {
+            padding: 50px 30px;
+            text-align: center;
+        }
+
+        .start-btn {
+            padding: 20px 40px;
+            background: linear-gradient(45deg, #0052ff, #00d4ff);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,82,255,0.3);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,82,255,0.4);
+        }
+
+        .quiz-content {
+            padding: 30px;
+            display: none;
+        }
+
+        .question-counter {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .question {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid #0052ff;
+        }
+
+        .question h3 {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .answer-btn {
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .answer-btn:hover {
+            border-color: #0052ff;
+            background: #f0f8ff;
+        }
+
+        .answer-btn.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .answer-btn.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .next-btn {
+            display: none;
+            margin: 20px auto;
+            padding: 12px 30px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .next-btn:hover {
+            background: #218838;
+        }
+
+        .result {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .result img {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .result h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .score {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .restart-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #0052ff, #00d4ff);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+            
+            .question h3 {
+                font-size: 1.2em;
+            }
+
+            .start-screen {
+                padding: 30px 20px;
+            }
+
+            .start-btn {
+                padding: 15px 30px;
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://i.ibb.co/QyNr4Gp/base-1500x500.jpg  " alt="BASE Logo">
+            <h1>How Well Do You Know BASE?</h1>
+        </div>
+
+        <div class="start-screen" id="startScreen">
+            <button class="start-btn" onclick="startQuiz()">🚀 Start Quiz</button>
+        </div>
+
+        <div class="quiz-content" id="quizContent">
+            <div class="question-counter" id="questionCounter"></div>
+            <div class="question" id="questionContainer"></div>
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="result" id="result">
+            <img id="resultImage" src="" alt="Result">
+            <h2 id="resultTitle"></h2>
+            <div class="score" id="scoreText"></div>
+            <button class="restart-btn" onclick="restartQuiz()">🔄 Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        // Combine all questions from three sets into one array with unique IDs
+        const allQuestions = [
+            // Set 1
+            {
+                id: 1,
+                question: "What is Base?",
+                answers: ["A cryptocurrency exchange", "An Ethereum Layer 2 incubated by Coinbase", "A mobile Bitcoin wallet"],
+                correct: 1,
+                difficulty: 1
+            },
+            {
+                id: 2,
+                question: "Who is the founder or key leader of the Base project?",
+                answers: ["Brian Armstrong", "Vitalik Buterin", "Jesse Pollak"],
+                correct: 2,
+                difficulty: 1
+            },
+            {
+                id: 3,
+                question: "What is Base's goal regarding transaction fees and speed?",
+                answers: ["Fees ~$1, confirmation in 10 seconds", "Fees under 1 cent, transactions faster than 1 second", "Free transactions with 5-minute confirmation"],
+                correct: 1,
+                difficulty: 2
+            },
+            {
+                id: 4,
+                question: "What technology is Base built on?",
+                answers: ["Solana", "Ethereum L1", "Ethereum L2 based on Optimism Superchain"],
+                correct: 2,
+                difficulty: 2
+            },
+            {
+                id: 5,
+                question: "What is the name of Base's new 'all-in-one' app launched in July 2024?",
+                answers: ["Base Wallet", "Base App (formerly Coinbase Wallet)", "OnchainOS"],
+                correct: 1,
+                difficulty: 2
+            },
+            {
+                id: 6,
+                question: "What can you do in Base App?",
+                answers: ["Only store ETH", "Create content, earn, trade, chat, and pay", "Play a single game only"],
+                correct: 1,
+                difficulty: 2
+            },
+            {
+                id: 7,
+                question: "Which stablecoin is used for fast payments in Base Pay?",
+                answers: ["DAI", "USDT", "USDC"],
+                correct: 2,
+                difficulty: 2
+            },
+            {
+                id: 8,
+                question: "What opportunities do developers have on Base?",
+                answers: ["Only launch NFTs", "Launch apps, tokens, even their own chains", "Only clone Ethereum apps"],
+                correct: 1,
+                difficulty: 3
+            },
+            {
+                id: 9,
+                question: "What support programs exist for builders on Base?",
+                answers: ["Only hackathons", "Builder Rewards (up to 2 ETH/week), grants, retroactive funding", "Only free hosting"],
+                correct: 1,
+                difficulty: 3
+            },
+            {
+                id: 10,
+                question: "How many countries does Base's economy cover through onramps (crypto entry points)?",
+                answers: ["50+ countries", "100+ countries", "190+ countries"],
+                correct: 2,
+                difficulty: 3
+            },
+            // Set 2
+            {
+                id: 11,
+                question: "What level of the Ethereum stack does Base represent?",
+                answers: ["Layer 1", "Layer 2", "Sidechain"],
+                correct: 1,
+                difficulty: 1
+            },
+            {
+                id: 12,
+                question: "Which company incubated Base?",
+                answers: ["Binance", "Kraken", "Coinbase"],
+                correct: 2,
+                difficulty: 1
+            },
+            {
+                id: 13,
+                question: "Which stablecoin is used in Base Pay for fast payments?",
+                answers: ["DAI", "USDC", "BUSD"],
+                correct: 1,
+                difficulty: 2
+            },
+            {
+                id: 14,
+                question: "How many countries are covered through onramps (crypto entry points) in the Base ecosystem?",
+                answers: ["Over 100 countries", "Over 150 countries", "Over 190 countries"],
+                correct: 2,
+                difficulty: 3
+            },
+            {
+                id: 15,
+                question: "What was the Coinbase Wallet app called before its rebranding in July 2024?",
+                answers: ["Base Wallet", "Coinbase Wallet", "Onchain App"],
+                correct: 1,
+                difficulty: 2
+            },
+            {
+                id: 16,
+                question: "What is the maximum APY (annual percentage yield) you can earn by holding USDC in Base App?",
+                answers: ["2.5%", "4.1%", "6.0%"],
+                correct: 1,
+                difficulty: 3
+            },
+            {
+                id: 17,
+                question: "What features does Base App include?",
+                answers: ["Only NFT viewing", "Content creation, earning, trading, chatting, and payments", "Only token swapping"],
+                correct: 1,
+                difficulty: 2
+            },
+            {
+                id: 18,
+                question: "What opportunities do developers have on Base?",
+                answers: ["Only launch NFT collections", "Launch apps, tokens, and even their own chains", "Only clone DeFi protocols"],
+                correct: 1,
+                difficulty: 3
+            },
+            {
+                id: 19,
+                question: "What is Base's goal regarding transaction fees and speed?",
+                answers: ["Fees under 1 cent, confirmation under 1 second", "Free transactions with 5-second confirmation", "Fees ~$0.10, confirmation in 2 seconds"],
+                correct: 0,
+                difficulty: 2
+            },
+            {
+                id: 20,
+                question: "What support programs are available for developers (builders) on Base?",
+                answers: ["Only hackathons", "Builder Rewards, grants, Base Batches, and retroactive funding", "Only technical documentation"],
+                correct: 1,
+                difficulty: 3
+            },
+            // Set 3
+            {
+                id: 21,
+                question: "What type of blockchain is Base?",
+                answers: ["Independent Layer 1", "Ethereum Layer 2", "Bitcoin sidechain"],
+                correct: 1,
+                difficulty: 1
+            },
+            {
+                id: 22,
+                question: "Which company incubated Base?",
+                answers: ["Kraken", "Binance", "Coinbase"],
+                correct: 2,
+                difficulty: 1
+            },
+            {
+                id: 23,
+                question: "What is the name of the new 'all-in-one' app launched by Base in July 2024?",
+                answers: ["Coinbase Wallet", "Base Wallet", "Base App"],
+                correct: 2,
+                difficulty: 2
+            },
+            {
+                id: 24,
+                question: "What features does Base App include?",
+                answers: ["Only NFT viewing", "Content creation, earning, trading, chatting, and payments", "Only cryptocurrency exchange"],
+                correct: 1,
+                difficulty: 2
+            },
+            {
+                id: 25,
+                question: "Which stablecoin is used in Base Pay for instant payments?",
+                answers: ["DAI", "USDT", "USDC"],
+                correct: 2,
+                difficulty: 2
+            },
+            {
+                id: 26,
+                question: "What is the maximum APY you can earn by holding USDC in Base App?",
+                answers: ["2.5%", "4.1%", "5.8%"],
+                correct: 1,
+                difficulty: 3
+            },
+            {
+                id: 27,
+                question: "How many countries are covered through onramps (crypto entry points) in the Base ecosystem?",
+                answers: ["100+", "150+", "190+"],
+                correct: 2,
+                difficulty: 3
+            },
+            {
+                id: 28,
+                question: "What can developers do on Base?",
+                answers: ["Only launch NFTs", "Launch apps, tokens, and even their own chains", "Only clone Uniswap"],
+                correct: 1,
+                difficulty: 3
+            },
+            {
+                id: 29,
+                question: "What is Base's goal regarding transaction fees and speed?",
+                answers: ["Fees under 1 cent, confirmation under 1 second", "Free transactions with 5-second confirmation", "Fees ~$0.10, confirmation in 2 seconds"],
+                correct: 0,
+                difficulty: 2
+            },
+            {
+                id: 30,
+                question: "What support programs are available for developers on Base?",
+                answers: ["Only technical documentation", "Builder Rewards (up to 2 ETH/week), grants, Base Batches, and retroactive funding", "Only annual hackathons"],
+                correct: 1,
+                difficulty: 3
+            }
+        ];
+
+        let currentQuestions = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        // Function to shuffle an array
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Improved function to select unique questions
+        function selectRandomQuestions() {
+            // Group questions by difficulty
+            const easyQuestions = allQuestions.filter(q => q.difficulty === 1);
+            const mediumQuestions = allQuestions.filter(q => q.difficulty === 2);
+            const hardQuestions = allQuestions.filter(q => q.difficulty === 3);
+
+            // Different distribution strategies
+            const strategies = [
+                { easy: 3, medium: 4, hard: 3 },  // Classic
+                { easy: 3, medium: 3, hard: 4 },  // Balanced
+                { easy: 4, medium: 3, hard: 3 },  // More easy
+                { easy: 2, medium: 3, hard: 5 },  // More hard
+                { easy: 4, medium: 4, hard: 2 },  // Gradual
+                { easy: 2, medium: 5, hard: 3 }   // More medium
+            ];
+
+            // Select a random strategy
+            const strategy = strategies[Math.floor(Math.random() * strategies.length)];
+            
+            const selectedQuestions = [];
+            const usedIds = new Set();
+
+            // Function to select unique questions from a category
+            function selectFromCategory(questions, count) {
+                const shuffled = shuffleArray(questions);
+                const selected = [];
+                
+                for (let i = 0; i < shuffled.length && selected.length < count; i++) {
+                    if (!usedIds.has(shuffled[i].id)) {
+                        selected.push(shuffled[i]);
+                        usedIds.add(shuffled[i].id);
+                    }
+                }
+                
+                return selected;
+            }
+
+            // Select questions according to the strategy
+            selectedQuestions.push(...selectFromCategory(easyQuestions, strategy.easy));
+            selectedQuestions.push(...selectFromCategory(mediumQuestions, strategy.medium));
+            selectedQuestions.push(...selectFromCategory(hardQuestions, strategy.hard));
+
+            // If we don't have enough questions, fill with remaining ones
+            while (selectedQuestions.length < 10) {
+                const remainingQuestions = allQuestions.filter(q => !usedIds.has(q.id));
+                if (remainingQuestions.length === 0) break;
+                
+                const randomQuestion = remainingQuestions[Math.floor(Math.random() * remainingQuestions.length)];
+                selectedQuestions.push(randomQuestion);
+                usedIds.add(randomQuestion.id);
+            }
+
+            // Final shuffle of question order
+            return shuffleArray(selectedQuestions).slice(0, 10);
+        }
+
+        // Function to shuffle answer options
+        function shuffleAnswers(question) {
+            const correctAnswer = question.answers[question.correct];
+            const shuffledAnswers = shuffleArray(question.answers);
+            const newCorrectIndex = shuffledAnswers.indexOf(correctAnswer);
+            
+            return {
+                ...question,
+                answers: shuffledAnswers,
+                correct: newCorrectIndex
+            };
+        }
+
+        function startQuiz() {
+            // Select 10 unique questions
+            currentQuestions = selectRandomQuestions();
+            
+            // Shuffle answer options for each question
+            currentQuestions = currentQuestions.map(shuffleAnswers);
+            
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'block';
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = currentQuestions[currentQuestion];
+            const questionCounter = document.getElementById('questionCounter');
+            const questionContainer = document.getElementById('questionContainer');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            questionCounter.textContent = `Question ${currentQuestion + 1} of 10`;
+            
+            let html = `<h3>${question.question}</h3><div class="answers">`;
+            
+            question.answers.forEach((answer, index) => {
+                html += `<button class="answer-btn" onclick="selectAnswer(${index})">${String.fromCharCode(65 + index)}) ${answer}</button>`;
+            });
+            
+            html += '</div>';
+            questionContainer.innerHTML = html;
+            nextBtn.style.display = 'none';
+            answered = false;
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (answered) return;
+            
+            answered = true;
+            const question = currentQuestions[currentQuestion];
+            const answerBtns = document.querySelectorAll('.answer-btn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            answerBtns.forEach((btn, index) => {
+                btn.style.pointerEvents = 'none';
+                if (index === question.correct) {
+                    btn.classList.add('correct');
+                } else if (index === selectedIndex && index !== question.correct) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedIndex === question.correct) {
+                score++;
+            }
+            
+            nextBtn.style.display = 'block';
+            if (currentQuestion === 9) {
+                nextBtn.textContent = 'Show Results';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion >= 10) {
+                showResult();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            
+            const resultImage = document.getElementById('resultImage');
+            const resultTitle = document.getElementById('resultTitle');
+            const scoreText = document.getElementById('scoreText');
+            
+            scoreText.textContent = `Your score: ${score} out of 10 correct answers`;
+            
+            if (score === 10) {
+                resultImage.src = 'https://i.ibb.co/KpYLPmMm/logo-base-smile.png  ';
+                resultTitle.textContent = 'Congratulations! Now you know BASE!';
+                resultTitle.style.color = '#28a745';
+            } else {
+                resultImage.src = 'https://i.ibb.co/0yvrHKxG/logo-sad.png  ';
+                resultTitle.textContent = 'Don\'t worry, try again!';
+                resultTitle.style.color = '#dc3545';
+            }
+        }
+
+        function restartQuiz() {
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
