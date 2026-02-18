@@ -1,645 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: How Well Do You Know BASE?</title>
+    <title>BASE BLUE SCAN</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            max-width: 800px;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(45deg, #0052ff, #00d4ff);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header img {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .start-screen {
-            padding: 50px 30px;
-            text-align: center;
-        }
-
-        .start-btn {
-            padding: 20px 40px;
-            background: linear-gradient(45deg, #0052ff, #00d4ff);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.5em;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,82,255,0.3);
-        }
-
-        .start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,82,255,0.4);
-        }
-
-        .quiz-content {
-            padding: 30px;
-            display: none;
-        }
-
-        .question-counter {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            color: #666;
-        }
-
-        .question {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            border-left: 5px solid #0052ff;
-        }
-
-        .question h3 {
-            font-size: 1.4em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .answers {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .answer-btn {
-            padding: 15px 20px;
-            border: 2px solid #e9ecef;
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
-            font-size: 1.1em;
-        }
-
-        .answer-btn:hover {
-            border-color: #0052ff;
-            background: #f0f8ff;
-        }
-
-        .answer-btn.correct {
-            background: #d4edda;
-            border-color: #28a745;
-            color: #155724;
-        }
-
-        .answer-btn.incorrect {
-            background: #f8d7da;
-            border-color: #dc3545;
-            color: #721c24;
-        }
-
-        .next-btn {
-            display: none;
-            margin: 20px auto;
-            padding: 12px 30px;
-            background: #28a745;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-        }
-
-        .next-btn:hover {
-            background: #218838;
-        }
-
-        .result {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .result img {
-            width: 200px;
-            height: 200px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        .result h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .score {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            color: #666;
-        }
-
-        .restart-btn {
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #0052ff, #00d4ff);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            margin: 10px;
-        }
-
-        .restart-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-            
-            .container {
-                margin: 10px;
-            }
-            
-            .question h3 {
-                font-size: 1.2em;
-            }
-
-            .start-screen {
-                padding: 30px 20px;
-            }
-
-            .start-btn {
-                padding: 15px 30px;
-                font-size: 1.3em;
-            }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        :root { --apple-blue: #0044ff; --apple-light-blue: #5599ff; --bg-color: #000a22; }
+        body { background-color: var(--bg-color); color: var(--apple-light-blue); font-family: 'VT323', monospace; text-transform: uppercase; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
+        body::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); z-index: 10; background-size: 100% 3px, 3px 100%; pointer-events: none; }
+        .terminal { width: 100%; max-width: 850px; border: 3px solid var(--apple-blue); padding: 30px; box-shadow: 0 0 30px rgba(0, 68, 255, 0.3); background: rgba(0, 5, 15, 0.9); position: relative; z-index: 5; }
+        .header { border-bottom: 2px solid var(--apple-blue); margin-bottom: 20px; padding-bottom: 10px; font-size: 1.2rem; }
+        .gas-bar { display: flex; justify-content: space-between; font-size: 1.6rem; margin-bottom: 30px; }
+        .input-area { display: flex; align-items: center; font-size: 1.6rem; border-bottom: 1px solid rgba(0, 68, 255, 0.3); padding-bottom: 5px; }
+        input { background: transparent; border: none; color: var(--apple-light-blue); font-family: 'VT323', monospace; font-size: 1.6rem; outline: none; width: 100%; caret-color: transparent; }
+        .cursor { display: inline-block; width: 14px; height: 24px; background: var(--apple-light-blue); animation: blink 0.8s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .results { margin-top: 20px; font-size: 1.4rem; line-height: 1.3; }
+        .typing { margin-bottom: 6px; text-shadow: 0 0 5px var(--apple-blue); }
+        .glow { text-shadow: 0 0 10px var(--apple-light-blue); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="https://i.ibb.co/QyNr4Gp/base-1500x500.jpg  " alt="BASE Logo">
-            <h1>How Well Do You Know BASE?</h1>
-        </div>
-
-        <div class="start-screen" id="startScreen">
-            <button class="start-btn" onclick="startQuiz()">🚀 Start Quiz</button>
-        </div>
-
-        <div class="quiz-content" id="quizContent">
-            <div class="question-counter" id="questionCounter"></div>
-            <div class="question" id="questionContainer"></div>
-            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question</button>
-        </div>
-
-        <div class="result" id="result">
-            <img id="resultImage" src="" alt="Result">
-            <h2 id="resultTitle"></h2>
-            <div class="score" id="scoreText"></div>
-            <button class="restart-btn" onclick="restartQuiz()">🔄 Play Again</button>
-        </div>
+<div class="terminal">
+    <div class="header glow">*** BASE BLUE SCAN ***</div>
+    <div class="gas-bar">
+        <div>ETH: $<span id="ethPrice">0000.00</span></div>
+        <div>GAS: <span id="gasPrice">0.00000</span> GWEI</div>
     </div>
+    <div class="input-area">
+        <label class="glow">ADDR></label>
+        <input type="text" id="walletAddr" spellcheck="false" autocomplete="off" autofocus placeholder="PASTE HERE">
+        <span class="cursor"></span>
+    </div>
+    <div id="display" class="results">READY.</div>
+</div>
 
-    <script>
-        // Combine all questions from three sets into one array with unique IDs
-        const allQuestions = [
-            // Set 1
-            {
-                id: 1,
-                question: "What is Base?",
-                answers: ["A cryptocurrency exchange", "An Ethereum Layer 2 incubated by Coinbase", "A mobile Bitcoin wallet"],
-                correct: 1,
-                difficulty: 1
-            },
-            {
-                id: 2,
-                question: "Who is the founder or key leader of the Base project?",
-                answers: ["Brian Armstrong", "Vitalik Buterin", "Jesse Pollak"],
-                correct: 2,
-                difficulty: 1
-            },
-            {
-                id: 3,
-                question: "What is Base's goal regarding transaction fees and speed?",
-                answers: ["Fees ~$1, confirmation in 10 seconds", "Fees under 1 cent, transactions faster than 1 second", "Free transactions with 5-minute confirmation"],
-                correct: 1,
-                difficulty: 2
-            },
-            {
-                id: 4,
-                question: "What technology is Base built on?",
-                answers: ["Solana", "Ethereum L1", "Ethereum L2 based on Optimism Superchain"],
-                correct: 2,
-                difficulty: 2
-            },
-            {
-                id: 5,
-                question: "What is the name of Base's new 'all-in-one' app launched in July 2024?",
-                answers: ["Base Wallet", "Base App (formerly Coinbase Wallet)", "OnchainOS"],
-                correct: 1,
-                difficulty: 2
-            },
-            {
-                id: 6,
-                question: "What can you do in Base App?",
-                answers: ["Only store ETH", "Create content, earn, trade, chat, and pay", "Play a single game only"],
-                correct: 1,
-                difficulty: 2
-            },
-            {
-                id: 7,
-                question: "Which stablecoin is used for fast payments in Base Pay?",
-                answers: ["DAI", "USDT", "USDC"],
-                correct: 2,
-                difficulty: 2
-            },
-            {
-                id: 8,
-                question: "What opportunities do developers have on Base?",
-                answers: ["Only launch NFTs", "Launch apps, tokens, even their own chains", "Only clone Ethereum apps"],
-                correct: 1,
-                difficulty: 3
-            },
-            {
-                id: 9,
-                question: "What support programs exist for builders on Base?",
-                answers: ["Only hackathons", "Builder Rewards (up to 2 ETH/week), grants, retroactive funding", "Only free hosting"],
-                correct: 1,
-                difficulty: 3
-            },
-            {
-                id: 10,
-                question: "How many countries does Base's economy cover through onramps (crypto entry points)?",
-                answers: ["50+ countries", "100+ countries", "190+ countries"],
-                correct: 2,
-                difficulty: 3
-            },
-            // Set 2
-            {
-                id: 11,
-                question: "What level of the Ethereum stack does Base represent?",
-                answers: ["Layer 1", "Layer 2", "Sidechain"],
-                correct: 1,
-                difficulty: 1
-            },
-            {
-                id: 12,
-                question: "Which company incubated Base?",
-                answers: ["Binance", "Kraken", "Coinbase"],
-                correct: 2,
-                difficulty: 1
-            },
-            {
-                id: 13,
-                question: "Which stablecoin is used in Base Pay for fast payments?",
-                answers: ["DAI", "USDC", "BUSD"],
-                correct: 1,
-                difficulty: 2
-            },
-            {
-                id: 14,
-                question: "How many countries are covered through onramps (crypto entry points) in the Base ecosystem?",
-                answers: ["Over 100 countries", "Over 150 countries", "Over 190 countries"],
-                correct: 2,
-                difficulty: 3
-            },
-            {
-                id: 15,
-                question: "What was the Coinbase Wallet app called before its rebranding in July 2024?",
-                answers: ["Base Wallet", "Coinbase Wallet", "Onchain App"],
-                correct: 1,
-                difficulty: 2
-            },
-            {
-                id: 16,
-                question: "What is the maximum APY (annual percentage yield) you can earn by holding USDC in Base App?",
-                answers: ["2.5%", "4.1%", "6.0%"],
-                correct: 1,
-                difficulty: 3
-            },
-            {
-                id: 17,
-                question: "What features does Base App include?",
-                answers: ["Only NFT viewing", "Content creation, earning, trading, chatting, and payments", "Only token swapping"],
-                correct: 1,
-                difficulty: 2
-            },
-            {
-                id: 18,
-                question: "What opportunities do developers have on Base?",
-                answers: ["Only launch NFT collections", "Launch apps, tokens, and even their own chains", "Only clone DeFi protocols"],
-                correct: 1,
-                difficulty: 3
-            },
-            {
-                id: 19,
-                question: "What is Base's goal regarding transaction fees and speed?",
-                answers: ["Fees under 1 cent, confirmation under 1 second", "Free transactions with 5-second confirmation", "Fees ~$0.10, confirmation in 2 seconds"],
-                correct: 0,
-                difficulty: 2
-            },
-            {
-                id: 20,
-                question: "What support programs are available for developers (builders) on Base?",
-                answers: ["Only hackathons", "Builder Rewards, grants, Base Batches, and retroactive funding", "Only technical documentation"],
-                correct: 1,
-                difficulty: 3
-            },
-            // Set 3
-            {
-                id: 21,
-                question: "What type of blockchain is Base?",
-                answers: ["Independent Layer 1", "Ethereum Layer 2", "Bitcoin sidechain"],
-                correct: 1,
-                difficulty: 1
-            },
-            {
-                id: 22,
-                question: "Which company incubated Base?",
-                answers: ["Kraken", "Binance", "Coinbase"],
-                correct: 2,
-                difficulty: 1
-            },
-            {
-                id: 23,
-                question: "What is the name of the new 'all-in-one' app launched by Base in July 2024?",
-                answers: ["Coinbase Wallet", "Base Wallet", "Base App"],
-                correct: 2,
-                difficulty: 2
-            },
-            {
-                id: 24,
-                question: "What features does Base App include?",
-                answers: ["Only NFT viewing", "Content creation, earning, trading, chatting, and payments", "Only cryptocurrency exchange"],
-                correct: 1,
-                difficulty: 2
-            },
-            {
-                id: 25,
-                question: "Which stablecoin is used in Base Pay for instant payments?",
-                answers: ["DAI", "USDT", "USDC"],
-                correct: 2,
-                difficulty: 2
-            },
-            {
-                id: 26,
-                question: "What is the maximum APY you can earn by holding USDC in Base App?",
-                answers: ["2.5%", "4.1%", "5.8%"],
-                correct: 1,
-                difficulty: 3
-            },
-            {
-                id: 27,
-                question: "How many countries are covered through onramps (crypto entry points) in the Base ecosystem?",
-                answers: ["100+", "150+", "190+"],
-                correct: 2,
-                difficulty: 3
-            },
-            {
-                id: 28,
-                question: "What can developers do on Base?",
-                answers: ["Only launch NFTs", "Launch apps, tokens, and even their own chains", "Only clone Uniswap"],
-                correct: 1,
-                difficulty: 3
-            },
-            {
-                id: 29,
-                question: "What is Base's goal regarding transaction fees and speed?",
-                answers: ["Fees under 1 cent, confirmation under 1 second", "Free transactions with 5-second confirmation", "Fees ~$0.10, confirmation in 2 seconds"],
-                correct: 0,
-                difficulty: 2
-            },
-            {
-                id: 30,
-                question: "What support programs are available for developers on Base?",
-                answers: ["Only technical documentation", "Builder Rewards (up to 2 ETH/week), grants, Base Batches, and retroactive funding", "Only annual hackathons"],
-                correct: 1,
-                difficulty: 3
+<script>
+    const API_KEY = '7RWV2ZFFQUXBSABTKJIADVDY3PCXFUQ9CW';
+    const CHAIN_ID = '8453';
+    let currentEthPrice = 0;
+    let audioCtx;
+
+    // Список токенов Base с контрактами
+    const TOKEN_LIST = [
+        { symbol: 'USDC',   address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', decimals: 6  },
+        { symbol: 'WETH',   address: '0x4200000000000000000000000000000000000006', decimals: 18 },
+        { symbol: 'DAI',    address: '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb', decimals: 18 },
+        { symbol: 'cbBTC',  address: '0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf', decimals: 8  },
+        { symbol: 'BRETT',  address: '0x532f27101965dd16442E59d40670FaF5eBB142E4', decimals: 18 },
+        { symbol: 'TOSHI',  address: '0xAC1Bd2486aAf3B5C0fc3Fd868558b082a531B2B4', decimals: 18 },
+        { symbol: 'DEGEN',  address: '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed', decimals: 18 },
+        { symbol: 'cbETH',  address: '0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22', decimals: 18 },
+    ];
+
+    function initAudio() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playClick() {
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.015);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.015);
+        osc.start(); osc.stop(audioCtx.currentTime + 0.015);
+    }
+
+    async function typeWriter(text) {
+        const display = document.getElementById('display');
+        if (display.innerHTML === "READY.") display.innerHTML = "";
+        const div = document.createElement('div');
+        div.className = "typing";
+        display.appendChild(div);
+        for (let i = 0; i < text.length; i++) {
+            div.innerHTML += text.charAt(i);
+            playClick();
+            await new Promise(r => setTimeout(r, 15));
+        }
+    }
+
+    // ИСПРАВЛЕНО: цена ETH через Etherscan stats (без CoinGecko)
+    async function loadStats() {
+        try {
+            const p = await fetch(
+                `https://api.etherscan.io/v2/api?chainid=1&module=stats&action=ethprice&apikey=${API_KEY}`
+            );
+            const pData = await p.json();
+            if (pData.result && pData.result.ethusd) {
+                currentEthPrice = parseFloat(pData.result.ethusd);
+                document.getElementById('ethPrice').innerText = currentEthPrice.toFixed(2);
             }
-        ];
 
-        let currentQuestions = [];
-        let currentQuestion = 0;
-        let score = 0;
-        let answered = false;
-
-        // Function to shuffle an array
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            const g = await fetch(
+                `https://api.etherscan.io/v2/api?chainid=${CHAIN_ID}&module=proxy&action=eth_gasPrice&apikey=${API_KEY}`
+            );
+            const gData = await g.json();
+            if (gData.result) {
+                document.getElementById('gasPrice').innerText = (parseInt(gData.result, 16) / 1e9).toFixed(5);
             }
-            return shuffled;
+        } catch(e) { console.error("Stats update error", e); }
+    }
+
+    document.getElementById('walletAddr').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') { initAudio(); performSearch(); }
+    });
+
+    async function performSearch() {
+        const addr = document.getElementById('walletAddr').value.trim();
+        if (!addr.startsWith('0x') || addr.length < 42) {
+            await typeWriter("> ERROR: INVALID ADDRESS");
+            return;
         }
 
-        // Improved function to select unique questions
-        function selectRandomQuestions() {
-            // Group questions by difficulty
-            const easyQuestions = allQuestions.filter(q => q.difficulty === 1);
-            const mediumQuestions = allQuestions.filter(q => q.difficulty === 2);
-            const hardQuestions = allQuestions.filter(q => q.difficulty === 3);
+        document.getElementById('display').innerHTML = "";
+        await typeWriter(`> CONNECTING TO BASE_NET...`);
 
-            // Different distribution strategies
-            const strategies = [
-                { easy: 3, medium: 4, hard: 3 },  // Classic
-                { easy: 3, medium: 3, hard: 4 },  // Balanced
-                { easy: 4, medium: 3, hard: 3 },  // More easy
-                { easy: 2, medium: 3, hard: 5 },  // More hard
-                { easy: 4, medium: 4, hard: 2 },  // Gradual
-                { easy: 2, medium: 5, hard: 3 }   // More medium
-            ];
+        // --- 1. БАЛАНС ETH ---
+        try {
+            const bRes = await fetch(
+                `https://api.etherscan.io/v2/api?chainid=${CHAIN_ID}&module=account&action=balance&address=${addr}&tag=latest&apikey=${API_KEY}`
+            );
+            const bData = await bRes.json();
+            const rawBalance = bData.result && !isNaN(bData.result) ? bData.result : "0";
+            const eth = parseFloat(rawBalance) / 1e18;
+            const usd = (eth * (currentEthPrice || 0)).toFixed(2);
+            await typeWriter(`> BALANCE: ${eth.toFixed(5)} ETH ($${usd})`);
+        } catch (e) {
+            await typeWriter(`> BALANCE: DATA ERROR`);
+        }
 
-            // Select a random strategy
-            const strategy = strategies[Math.floor(Math.random() * strategies.length)];
-            
-            const selectedQuestions = [];
-            const usedIds = new Set();
+        await new Promise(r => setTimeout(r, 300));
 
-            // Function to select unique questions from a category
-            function selectFromCategory(questions, count) {
-                const shuffled = shuffleArray(questions);
-                const selected = [];
-                
-                for (let i = 0; i < shuffled.length && selected.length < count; i++) {
-                    if (!usedIds.has(shuffled[i].id)) {
-                        selected.push(shuffled[i]);
-                        usedIds.add(shuffled[i].id);
+        // --- 2. ТОКЕНЫ ERC-20 (ИСПРАВЛЕНО: tokenbalance по контракту) ---
+        try {
+            await typeWriter(`> SCANNING ASSETS...`);
+            let found = 0;
+            for (let token of TOKEN_LIST) {
+                const res = await fetch(
+                    `https://api.etherscan.io/v2/api?chainid=${CHAIN_ID}&module=account&action=tokenbalance` +
+                    `&contractaddress=${token.address}&address=${addr}&tag=latest&apikey=${API_KEY}`
+                );
+                const data = await res.json();
+                if (data.status === "1" && data.result && data.result !== "0") {
+                    const bal = parseFloat(data.result) / Math.pow(10, token.decimals);
+                    if (bal > 0.0001) {
+                        await typeWriter(`* TOKEN: ${bal.toFixed(4)} ${token.symbol}`);
+                        found++;
                     }
                 }
-                
-                return selected;
+                await new Promise(r => setTimeout(r, 200)); // задержка между запросами
             }
-
-            // Select questions according to the strategy
-            selectedQuestions.push(...selectFromCategory(easyQuestions, strategy.easy));
-            selectedQuestions.push(...selectFromCategory(mediumQuestions, strategy.medium));
-            selectedQuestions.push(...selectFromCategory(hardQuestions, strategy.hard));
-
-            // If we don't have enough questions, fill with remaining ones
-            while (selectedQuestions.length < 10) {
-                const remainingQuestions = allQuestions.filter(q => !usedIds.has(q.id));
-                if (remainingQuestions.length === 0) break;
-                
-                const randomQuestion = remainingQuestions[Math.floor(Math.random() * remainingQuestions.length)];
-                selectedQuestions.push(randomQuestion);
-                usedIds.add(randomQuestion.id);
-            }
-
-            // Final shuffle of question order
-            return shuffleArray(selectedQuestions).slice(0, 10);
+            if (found === 0) await typeWriter(`> NO ERC-20 TOKENS FOUND.`);
+        } catch (e) {
+            await typeWriter(`> ASSET SCAN FAILED.`);
         }
 
-        // Function to shuffle answer options
-        function shuffleAnswers(question) {
-            const correctAnswer = question.answers[question.correct];
-            const shuffledAnswers = shuffleArray(question.answers);
-            const newCorrectIndex = shuffledAnswers.indexOf(correctAnswer);
-            
-            return {
-                ...question,
-                answers: shuffledAnswers,
-                correct: newCorrectIndex
-            };
-        }
+        await new Promise(r => setTimeout(r, 300));
 
-        function startQuiz() {
-            // Select 10 unique questions
-            currentQuestions = selectRandomQuestions();
-            
-            // Shuffle answer options for each question
-            currentQuestions = currentQuestions.map(shuffleAnswers);
-            
-            currentQuestion = 0;
-            score = 0;
-            answered = false;
-            
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('quizContent').style.display = 'block';
-            
-            showQuestion();
-        }
-
-        function showQuestion() {
-            const question = currentQuestions[currentQuestion];
-            const questionCounter = document.getElementById('questionCounter');
-            const questionContainer = document.getElementById('questionContainer');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            questionCounter.textContent = `Question ${currentQuestion + 1} of 10`;
-            
-            let html = `<h3>${question.question}</h3><div class="answers">`;
-            
-            question.answers.forEach((answer, index) => {
-                html += `<button class="answer-btn" onclick="selectAnswer(${index})">${String.fromCharCode(65 + index)}) ${answer}</button>`;
-            });
-            
-            html += '</div>';
-            questionContainer.innerHTML = html;
-            nextBtn.style.display = 'none';
-            answered = false;
-        }
-
-        function selectAnswer(selectedIndex) {
-            if (answered) return;
-            
-            answered = true;
-            const question = currentQuestions[currentQuestion];
-            const answerBtns = document.querySelectorAll('.answer-btn');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            answerBtns.forEach((btn, index) => {
-                btn.style.pointerEvents = 'none';
-                if (index === question.correct) {
-                    btn.classList.add('correct');
-                } else if (index === selectedIndex && index !== question.correct) {
-                    btn.classList.add('incorrect');
+        // --- 3. NFT ---
+        try {
+            await typeWriter(`> SCANNING NFT COLLECTIONS...`);
+            const nRes = await fetch(
+                `https://api.etherscan.io/v2/api?chainid=${CHAIN_ID}&module=account&action=tokennfttx&address=${addr}&page=1&offset=15&sort=desc&apikey=${API_KEY}`
+            );
+            const nData = await nRes.json();
+            if (nData.status === "1" && nData.result && nData.result.length > 0) {
+                const seenNft = new Set();
+                let nftCount = 0;
+                for (let nft of nData.result) {
+                    if (!seenNft.has(nft.contractAddress) && nftCount < 3) {
+                        seenNft.add(nft.contractAddress);
+                        await typeWriter(`* NFT: ${nft.tokenName || 'COLLECTION'} #${nft.tokenID.substring(0, 6)}`);
+                        nftCount++;
+                    }
                 }
-            });
-            
-            if (selectedIndex === question.correct) {
-                score++;
-            }
-            
-            nextBtn.style.display = 'block';
-            if (currentQuestion === 9) {
-                nextBtn.textContent = 'Show Results';
-            }
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            
-            if (currentQuestion >= 10) {
-                showResult();
             } else {
-                showQuestion();
+                await typeWriter(`> NO NFT ASSETS DETECTED.`);
             }
+        } catch (e) {
+            await typeWriter(`> NFT SCAN ERROR.`);
         }
 
-        function showResult() {
-            document.getElementById('quizContent').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
-            
-            const resultImage = document.getElementById('resultImage');
-            const resultTitle = document.getElementById('resultTitle');
-            const scoreText = document.getElementById('scoreText');
-            
-            scoreText.textContent = `Your score: ${score} out of 10 correct answers`;
-            
-            if (score === 10) {
-                resultImage.src = 'https://i.ibb.co/KpYLPmMm/logo-base-smile.png  ';
-                resultTitle.textContent = 'Congratulations! Now you know BASE!';
-                resultTitle.style.color = '#28a745';
+        await new Promise(r => setTimeout(r, 300));
+
+        // --- 4. ИСТОРИЯ ТРАНЗАКЦИЙ ---
+        try {
+            await typeWriter(`> LOADING HISTORY...`);
+            const txRes = await fetch(
+                `https://api.etherscan.io/v2/api?chainid=${CHAIN_ID}&module=account&action=txlist&address=${addr}&page=1&offset=5&sort=desc&apikey=${API_KEY}`
+            );
+            const txData = await txRes.json();
+            if (txData.status === "1" && txData.result && txData.result.length > 0) {
+                for (let tx of txData.result) {
+                    const type = tx.from.toLowerCase() === addr.toLowerCase() ? "OUT" : "IN";
+                    const v = (parseFloat(tx.value) / 1e18).toFixed(4);
+                    await typeWriter(`- TX [${type}] ${tx.hash.substring(0, 8)} VAL: ${v} ETH`);
+                }
             } else {
-                resultImage.src = 'https://i.ibb.co/0yvrHKxG/logo-sad.png  ';
-                resultTitle.textContent = 'Don\'t worry, try again!';
-                resultTitle.style.color = '#dc3545';
+                await typeWriter(`> NO RECENT TRANSACTIONS.`);
             }
+        } catch (e) {
+            await typeWriter(`> HISTORY LOADING ERROR.`);
         }
 
-        function restartQuiz() {
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('startScreen').style.display = 'block';
-        }
-    </script>
+        await typeWriter(`> DONE. SYSTEM IDLE.`);
+    }
+
+    loadStats();
+    setInterval(loadStats, 30000);
+</script>
 </body>
 </html>
